@@ -13,25 +13,27 @@
   <!-- Bootstrap core CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link href="css/styleslogin.css"rel="stylesheet">
 </head>
 
 <body>
   <section>
-  <img src="img/login.png" alt="">
-  <form action="" id ="formulario">
-    <fieldset>
-      <label for="nombreusuario"></label>
-      <input type="text" name="nombreusuario" id="nombreusuario" placeholder="Nombre de usuario"required>  
-    </fieldset>
-    <fieldset>
-      <label for="password"></label>
-      <input type="password" name="password" id="password" placeholder="Contraseña" required>
-    </fieldset>
-    <fieldset>
-      <input type="button" onclick="verificacion()">
-    </fieldset>
-  </form>
-</section>
+    <img src="img/login.png" alt="">
+    <p>Ingrese usuario y contraseña para acceder</p>
+    <form   action="" id ="formulario">
+      <fieldset>
+        <label for="nombreusuario"></label>
+        <input type="text" name="nombreusuario" id="nombreusuario" placeholder="Nombre de usuario"required>  
+      </fieldset>
+      <fieldset>
+        <label for="password"></label>
+        <input type="password" name="password" id="password" placeholder="Contraseña" required>
+      </fieldset>
+      <fieldset>
+        <input type="button" onclick="verificacion()" value ="Ingresar">
+      </fieldset>
+    </form>
+  </section>
 <script src="js/init.js"></script>
 <script src="js/login.js"></script>  
 </body>

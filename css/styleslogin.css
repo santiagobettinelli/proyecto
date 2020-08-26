@@ -1,0 +1,28 @@
+body{
+    background: radial-gradient();
+    background: linear-gradient(to right, rgba(237,237,237,1) 37%, rgba(246,246,246,1) 64%, rgba(255,255,255,1) 100%);
+}
+p{
+        font-family: Raleway, sans-serif;
+        font-size: 33px;
+        font-weight: 100;
+        color: rgba(214, 28, 108, 1);
+        text-transform: none;
+        font-style: normal;
+        text-decoration: none;
+        line-height: 1.3em;
+        text-shadow: 0px 0px 0px rgba(0, 0, 0, 1);
+    text-align: center;
+}
+form{
+  text-align: center;
+}
+
+img {
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+button{
+    cursor: pointer;
+}

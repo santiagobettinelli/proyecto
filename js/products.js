@@ -1,23 +1,33 @@
-var categoriesArray = [];
+var productsArray = [];
 
-function showCategoriesList(array){
+var showSpinner = function(){
+    document.getElementById("spinner-wrapper").style.display = "block";
+  }
+  
+  var hideSpinner = function(){
+    document.getElementById("spinner-wrapper").style.display = "none";
+  }
+
+function showProductsList(array){
     let htmlContentToAppend = "";
     for(let i = 0; i < array.length; i++){
-        let category = array[i];
+        let product = array[i];
 
         htmlContentToAppend += `
         <div class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
-                    <img src="` + category.imgSrc + `" alt="` + category.name + `" class="img-thumbnail">
+                    <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
-                        <h3 class="mb-1">`+ category.name +`</h3>
-                        <small class="text-muted">` + category.soldCount + ` artículos</small>
+                        <h3 class="mb-1">`+ product.name +`</h3>
+                        <small>` + product.soldCount + ` artículos</small>
                     </div>
-                    <p>`+category.description + `</p> 
-                    <h3>`+category.currency+` `+category.cost+` 
+                    <p>`+product.description + `</p> 
+                    <div style="text-align:right;"> 
+                    <h3>`+product.currency+` `+product.cost+` </h3>
+                    </div>
                 </div>
                 
             </div>
@@ -35,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
     showSpinner();
     getJSONData(PRODUCTS_URL).then(function(resultObj){
         if(resultObj.status=="ok"){
-            categoriesArray = resultObj.data;
+            productsArray = resultObj.data;
             //Muestro las categorías ordenadas
-            showCategoriesList(categoriesArray);
+            showProductsList(productsArray);
         }
         hideSpinner();
     })

@@ -1,3 +1,15 @@
+var loggeado = sessionStorage.getItem("visitado");
+if(!location.href.endsWith("login.html")&&(loggeado!="true")){
+  window.location.replace("login.html");
+};
+
+var usuario2 = JSON.parse(localStorage.getItem("usu"));
+var linkusuario = document.createElement("a");
+linkusuario.setAttribute("class","py-2 d-none d-md-inline-block");
+linkusuario.setAttribute("href", "my-profile.html");
+linkusuario.appendChild(document.createTextNode(usuario2.nombre));
+document.querySelectorAll('nav.site-header div')[0].appendChild(linkusuario);
+
 const CATEGORIES_URL = "https://japdevdep.github.io/ecommerce-api/category/all.json";
 const PUBLISH_PRODUCT_URL = "https://japdevdep.github.io/ecommerce-api/product/publish.json";
 const CATEGORY_INFO_URL = "https://japdevdep.github.io/ecommerce-api/category/1234.json";
@@ -40,10 +52,7 @@ var getJSONData = function(url){
         return result;
     });
 };
-var loggeado = sessionStorage.getItem("visitado");
-if(!location.href.endsWith("login.html")&&(loggeado!="true")){
-  window.location.replace("login.html");
-};
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
