@@ -28,10 +28,30 @@
           <h2>Automoviles Disponibles</h2>
       </div>
       <div class="container">
-          <div class="row">
+        <div class = "row justify-content-end">
+          <div class="col-md-6"></div>
+          <div class="col-md-6 col-sm-12 mb-1 container">
+            <div class="row-container p-0 m-0">
+              <div class="col">
+                <p class="font-weight-normal text-right my-2"> Precio</p>
+              </div>
+              <div class="col">
+                <input type="number" class="form-control" id="filtradoPrecioMinimo" placeholder="precio minimo">
+              </div>
+              <div class="col">
+                <input type="number" class="form-control" id="filtradoPrecioMaximo" placeholder="precio maximo">
+              </div>
+              <div class="btn-group" role="group">
+                <button class="btn btn-light btn-block" id ="filtradoPrecio"> Filtrar</button>
+                <button class="btn btn-link btn-sm" id ="borrarRangoFiltrado">Limpiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
               <div class="list-group" id="product-list-container">
               </div>
-          </div>
+        </div>
       </div>
   </main>
     <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
