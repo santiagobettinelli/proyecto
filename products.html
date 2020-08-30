@@ -28,18 +28,30 @@
           <h2>Automoviles Disponibles</h2>
       </div>
       <div class="container">
+        <div class ="row">
+          <div class ="col text-right">
+            <div class = "btn-group btn-group-toggle mb-4" data-toggle="buttons">
+              <label class ="btn btn-light active" id="sortDescPrecio">
+                <input type="radio" name ="options" autocomplete="off" checked> Mayor precio 
+              </label>
+              <label class ="btn btn-light" id ="sortAscPrecio" >
+                <input type ="radio" name ="options" autocomplete ="off"> Menor precio
+              </label>
+              <label class ="btn btn-light" id ="sortPorRelevancia">
+                <input type ="radio" name = "options" autocomplete="off">
+                <i class ="fas fa-sort-amount-down mr-1"></i>Relevancia
+              </label>
+            </div>
+          </div>
+        </div>  
         <div class = "row justify-content-end">
-          <div class="col-md-6"></div>
-          <div class="col-md-6 col-sm-12 mb-1 container">
-            <div class="row-container p-0 m-0">
-              <div class="col">
-                <p class="font-weight-normal text-right my-2"> Precio</p>
+          <div>
+            <div id ="inputnumeros" class="row-container p-0 m-0">
+              <div id ="colmin" class="col">
+                <input type="number"  id="filtradoPrecioMinimo" placeholder="Precio mínimo">
               </div>
-              <div class="col">
-                <input type="number" class="form-control" id="filtradoPrecioMinimo" placeholder="precio minimo">
-              </div>
-              <div class="col">
-                <input type="number" class="form-control" id="filtradoPrecioMaximo" placeholder="precio maximo">
+              <div id ="colmax" class="col">
+                <input type="number"  id="filtradoPrecioMaximo" placeholder="Precio máximo">
               </div>
               <div class="btn-group" role="group">
                 <button class="btn btn-light btn-block" id ="filtradoPrecio"> Filtrar</button>

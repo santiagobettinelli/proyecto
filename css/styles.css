@@ -139,3 +139,12 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+div#inputnumeros input {
+  width: 72%;
+}
+div#colmin {
+  padding-left: 1%;
+}
+div#colmax {
+  padding-left: 1%;
+}
