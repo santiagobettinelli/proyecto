@@ -67,28 +67,29 @@ function showProductsList(array){
             let product = arraycopia[i];
 
             htmlContentToAppend += `
+            <a href="product-info.html?`+product.name.replace(/\s+/g, '')+`">
             <div class="list-group-item list-group-item-action">
-                <div class="row">
-                    <div class="col-3">
-                        <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
-                    </div>
-                    <div class="col">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h3 class="mb-1">`+ product.name +`</h3>
-                            <small>` + product.soldCount + ` artículos</small>
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
                         </div>
-                        <p>`+product.description + `</p> 
-                        <div style="text-align:right;"> 
-                        <h3>`+product.currency+` `+product.cost+` </h3>
+                        <div class="col">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h3 class="mb-1">`+ product.name +`</h3>
+                                <small>` + product.soldCount + ` artículos</small>
+                            </div>
+                            <p>`+product.description + `</p> 
+                            <div style="text-align:right;"> 
+                            <h3>`+product.currency+` `+product.cost+` </h3>
+                            </div>
                         </div>
+                        
                     </div>
-                    
                 </div>
-            </div>`
+            </a>`
             ;
-
-            document.getElementById("product-list-container").innerHTML = htmlContentToAppend;
-        }
+        };
+        document.getElementById("product-list-container").innerHTML = htmlContentToAppend;
     } else {
         document.getElementById("product-list-container").innerHTML = "";
     }

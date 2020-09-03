@@ -148,3 +148,10 @@ div#colmin {
 div#colmax {
   padding-left: 1%;
 }
+
+input#showcomments {
+  margin-bottom: 5%;
+}
+a#volver {
+  color: black;
+}
