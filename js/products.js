@@ -67,7 +67,7 @@ function showProductsList(array){
             let product = arraycopia[i];
 
             htmlContentToAppend += `
-            <a href="product-info.html?`+product.name.replace(/\s+/g, '')+`">
+            <a href="product-info.html?`+product.name+`">
             <div class="list-group-item list-group-item-action">
                     <div class="row">
                         <div class="col-3">

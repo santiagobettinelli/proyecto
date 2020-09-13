@@ -1,9 +1,13 @@
 
-let productdata = undefined;
+var productdata = undefined;
+var commentsdata = undefined;
+var usuario = JSON.parse(localStorage.getItem("usu"));
+
+const nombreproducto = decodeURI(window.location.search.substring(1));
 
 function showProductInfo(producto){
     let hmtltoappend = 
-    `<h3>`+producto.name+`</h3>
+    `<h3>`+nombreproducto+`</h3>
      <hr>
      <p>`+producto.description+`</p>
      <h4>`+producto.currency+` `+producto.cost+`</h4>
@@ -20,50 +24,125 @@ function showProductInfo(producto){
         `
     }
     hmtltoappend+=`
+    <div  class="container p-5">
+        <input type="button" id="showcomments" value="Mostrar/Ocultar comentarios y puntuaciones" onclick="spoiler()" >
+    </div>
+        <div id="toappendcomments" class= "container p-5" style="display: none;">
+        </div>
+    </div>
+    <div id="relatedproducts" class="row text-center text-lg-left pt-2">
     </div>
     `;
     document.getElementById("toappend").innerHTML=hmtltoappend;
 };
+function crearhora(){
+    var date = new Date();
+    if(date.getMonth()<10){
+        if (date.getDate()<10){
+            date = date.getFullYear() +"-"+ "0" + (date.getMonth()+1)+"-"+ "0"+ date.getDate()+" "+ date.getHours()+":"+date.getMinutes()+ ":" +date.getSeconds();    
+        } else {
+            date = date.getFullYear() +"-"+ "0" + (date.getMonth()+1)+"-"+ date.getDate()+" "+ date.getHours()+":"+date.getMinutes()+ ":" +date.getSeconds();
+        }
+    } else if(date.getDate()<10){
+        date = date.getFullYear() +"-"+(date.getMonth()+1)+"-"+ "0"+ date.getDate()+" "+ date.getHours()+":"+date.getMinutes()+ ":" +date.getSeconds();
+            } else   {
+                date = date.getFullYear() +"-"+(date.getMonth()+1)+"-"+ date.getDate()+" "+ date.getHours()+":"+date.getMinutes()+ ":" +date.getSeconds();
+            };
+    return date;
+}
+
+function tomardatos(event){
+    event.preventDefault();
+    const diahora = crearhora(); 
+    nuevocomentario ={
+        score: document.getElementById("puntuacion").value,
+        description: document.getElementById("description").value,
+        user: usuario.nombre,
+        dateTime: diahora
+    };
+    commentsdata.push(nuevocomentario);
+    showComents(commentsdata);
+
+}
+function spoiler(){
+    if(document.getElementById("toappendcomments").style.display=="none"){
+        document.getElementById("toappendcomments").style.display="";
+    } else {
+            document.getElementById("toappendcomments").style.display="none";
+        }
+};
 
 function showComents(comentarios){
+    document.getElementById("toappendcomments").innerHTML="";
     htmltoappend = "";
     for (let i = 0; i < comentarios.length; i++) {
         const element = comentarios[i];
         htmltoappend +=`
-        <h3>Usuario: `+element.user+`</h3>
-        <p>`+element.description+`</p>
-        <p>`+element.dateTime+`</p>
-        <h2>Puntuacion: `+element.score+`<h2>
-        <br>
+        <div class="comentario">
+            <h3>Usuario: `+element.user+`</h3>
+            <p>`+element.description+`</p>
+            <p>`+element.dateTime+`</p>
+            <h3>Puntuacion: `+element.score+`<h3>
+        </div>
         `
     }
+    htmltoappend +=
+    `<h3> Deja un comentario sobre el producto</h3>
+    <form action="">
+    <fieldset>
+        <label for ="description">Comentario</label>
+        <input type="text" name ="desctiption" id="description">
+    </fieldset>
+    <fieldset>
+        <label for ="puntuacion">Puntuacion: </label>
+        <input type="number" name="puntuacion" id="puntuacion" min="0" max="5" required>
+    </fieldset>
+    <fieldset>
+        <input id ="tomar" type="button" onclick="tomardatos(event)" value ="Enviar">
+    </form>`
+ 
     document.getElementById("toappendcomments").innerHTML+=htmltoappend;
 }
-function noInfo(){
-    document.getElementById("toappendcomments").innerHTML="";
-    var parrafo = document.createElement("h3");
-    parrafo.appendChild(document.createTextNode("Lo sentimos pero no hay informacion de ese producto"));
-    document.getElementById("toappend").appendChild(parrafo); 
-}
+
+function showrelatedproducts(relproducts,productdata){
+    htmltoappend= "";
+    const related = productdata.relatedProducts;
+    for (let i = 0; i < related.length; i++) {
+        const element = related[i];
+        const producto = relproducts[element];
+        htmltoappend +=`
+        <a href ="product-info.html?`+producto.name+`">
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="d-block mb-4 h-100">
+                    <p>`+producto.name+`</p>
+                    <img src="`+producto.imgSrc+`" class="img-fluid img-thumbnail">
+                </div>
+            </div>    
+        </a>
+        `
+    };
+    document.getElementById("relatedproducts").innerHTML+=htmltoappend;
+};
+
 
 // function noInfo(){
-//     htmltoappend =`
-//     <h3>Lo sentimos pero no hay informacion de ese producto</h3>
-//     <a href="products.html"><h5> PRESIONE AQUÍ PARA VOLVER A LOS PRODUCTOS</h5></a>`;
-//     document.getElementById("toappendcomments").innerHTML=htmltoappend;
-// }
+//     document.getElementById("toappendcomments").innerHTML="";
+//     var parrafo = document.createElement("h3");
+//     parrafo.appendChild(document.createTextNode("Lo sentimos pero no hay informacion de ese producto"));
+//     document.getElementById("toappend").appendChild(parrafo); 
+// };
+
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    if(location.href.endsWith("ChevroletOnixJoy")){
         getJSONData(PRODUCT_INFO_URL).then(result => {
             productdata = result.data
-            console.log(productdata)
             showProductInfo(productdata);
             });
-        document.getElementById("showcomments").addEventListener("click",function(){
-            getJSONData(PRODUCT_INFO_COMMENTS_URL).then(result => showComents(result.data))
+        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(result => {
+            commentsdata= result.data;
+            showComents(commentsdata);
         });
-    } else noInfo();
+        getJSONData(PRODUCTS_URL).then(result =>showrelatedproducts(result.data,productdata));
 });
