@@ -1,6 +1,7 @@
 
-var productdata = undefined;
-var commentsdata = undefined;
+var productData = undefined;
+var commentsData = [];
+var products = [];
 var usuario = JSON.parse(localStorage.getItem("usu"));
 
 const nombreproducto = decodeURI(window.location.search.substring(1));
@@ -60,8 +61,8 @@ function tomardatos(event){
         user: usuario.nombre,
         dateTime: diahora
     };
-    commentsdata.push(nuevocomentario);
-    showComents(commentsdata);
+    commentsData.push(nuevocomentario);
+    showComents(commentsData);
 
 }
 function spoiler(){
@@ -74,7 +75,7 @@ function spoiler(){
 
 function showComents(comentarios){
     document.getElementById("toappendcomments").innerHTML="";
-    htmltoappend = "";
+    let htmltoappend = "";
     for (let i = 0; i < comentarios.length; i++) {
         const element = comentarios[i];
         htmltoappend +=`
@@ -106,7 +107,7 @@ function showComents(comentarios){
 
 function showrelatedproducts(relproducts,productdata){
     htmltoappend= "";
-    const related = productdata.relatedProducts;
+    let related = productData.relatedProducts;
     for (let i = 0; i < related.length; i++) {
         const element = related[i];
         const producto = relproducts[element];
@@ -125,24 +126,26 @@ function showrelatedproducts(relproducts,productdata){
 };
 
 
-// function noInfo(){
-//     document.getElementById("toappendcomments").innerHTML="";
-//     var parrafo = document.createElement("h3");
-//     parrafo.appendChild(document.createTextNode("Lo sentimos pero no hay informacion de ese producto"));
-//     document.getElementById("toappend").appendChild(parrafo); 
-// };
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-        getJSONData(PRODUCT_INFO_URL).then(result => {
-            productdata = result.data
-            showProductInfo(productdata);
-            });
-        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(result => {
-            commentsdata= result.data;
-            showComents(commentsdata);
+    showSpinner();
+    getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
+        productData = resultObj.data;
+        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
+            if(resultObj.status=="ok"){    
+                commentsData= resultObj.data;
+            };
+            getJSONData(PRODUCTS_URL).then(function(resultObj){
+                if(resultObj.status=="ok"){    
+                    products = resultObj.data;
+                    showProductInfo(productData);
+                    showComents(commentsData);
+                    showrelatedproducts(products, productData);
+                }});
         });
-        getJSONData(PRODUCTS_URL).then(result =>showrelatedproducts(result.data,productdata));
+        hideSpinner();
+    });
 });

@@ -1,14 +1,31 @@
 var loggeado = sessionStorage.getItem("visitado");
 if(!location.href.endsWith("login.html")&&(loggeado!="true")){
   window.location.replace("login.html");
+}else if (loggeado == "true" && location.href.endsWith("login.html") ){
+  window.location.replace("index.html")
 };
 
-var usuario2 = JSON.parse(localStorage.getItem("usu"));
-var linkusuario = document.createElement("a");
-linkusuario.setAttribute("class","py-2 d-none d-md-inline-block");
-linkusuario.setAttribute("href", "my-profile.html");
-linkusuario.appendChild(document.createTextNode(usuario2.nombre));
-document.querySelectorAll('nav.site-header div')[0].appendChild(linkusuario);
+var usuario = JSON.parse(localStorage.getItem("usu"));
+if (!location.href.endsWith("login.html")){
+  var div1 = document.createElement("div");
+  div1.setAttribute("class","dropdown");
+  var htmlcontent= `
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              `+usuario.nombre+`
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="my-profile.html">Perfil</a>
+              <a class="dropdown-item" href="cart.html">Carrito</a>
+              <a class="dropdown-item" href="login.html" onclick=borrardatos() >Cerrar sesión</a>
+            </div>
+  `
+  div1.innerHTML= htmlcontent;
+  document.querySelectorAll('nav.site-header div')[0].appendChild(div1);
+};
+function borrardatos(){
+  sessionStorage.removeItem("visitado");
+}
+
 
 const CATEGORIES_URL = "https://japdevdep.github.io/ecommerce-api/category/all.json";
 const PUBLISH_PRODUCT_URL = "https://japdevdep.github.io/ecommerce-api/product/publish.json";

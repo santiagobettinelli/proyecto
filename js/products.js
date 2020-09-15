@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCTS_URL).then(function(resultObj){
         if(resultObj.status=="ok"){
             productsArray = resultObj.data;
-            //Muestro las categorías ordenadas
             showProductsList(sortProducts(descendenteprecio,productsArray));
         }
         hideSpinner();
