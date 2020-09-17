@@ -67,7 +67,7 @@ function showProductsList(array){
             let product = arraycopia[i];
 
             htmlContentToAppend += `
-            <a href="product-info.html?`+product.name+`">
+            <a href="product-info.html?producto=`+product.name+`">
             <div class="list-group-item list-group-item-action">
                     <div class="row">
                         <div class="col-3">
@@ -94,6 +94,41 @@ function showProductsList(array){
         document.getElementById("product-list-container").innerHTML = "";
     }
 };
+function showPoductsByLetter(){
+    var htmlContentToAppend="";
+    var word = document.getElementById("buscador").value;
+    for (let index = 0; index < productsArray.length; index++) {
+        const product = productsArray[index];
+        const productname = product.name.toLowerCase();
+        if (productname.indexOf(word.toLowerCase())==0){
+             htmlContentToAppend += `
+            <a href="product-info.html?producto=`+product.name+`">
+            <div class="list-group-item list-group-item-action">
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+                        </div>
+                        <div class="col">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h3 class="mb-1">`+ product.name +`</h3>
+                                <small>` + product.soldCount + ` artículos</small>
+                            </div>
+                            <p>`+product.description + `</p> 
+                            <div style="text-align:right;"> 
+                            <h3>`+product.currency+` `+product.cost+` </h3>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </a>`
+            ;
+            
+        } 
+    };
+    document.getElementById("product-list-container").innerHTML = htmlContentToAppend;
+}
+
 
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
@@ -127,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         document.getElementById("filtradoPrecioMinimo").value = "";
         document.getElementById("filtradoPrecioMaximo").value = "";
         showProductsList(productsArray);
-    })
+    });
     document.getElementById("filtradoPrecio").addEventListener("click",function (){
         minprecio = document.getElementById("filtradoPrecioMinimo").value;
         maxprecio = document.getElementById("filtradoPrecioMaximo").value;
@@ -143,6 +178,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
         }
 
         showProductsList(productsArray);
-    })
+    });
+    document.getElementById("buscador").addEventListener("keyup", (event) => {
+        showPoductsByLetter();
+    } );
+    document.getElementById("buscador").addEventListener("input", (event) => {
+        if ( document.getElementById("buscador").value ==""){
+            showProductsList(productsArray);
+        };
+    });
+
 
 });

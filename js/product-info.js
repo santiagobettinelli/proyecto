@@ -1,40 +1,78 @@
-
-var productData = undefined;
 var commentsData = [];
 var products = [];
 var usuario = JSON.parse(localStorage.getItem("usu"));
 
-const nombreproducto = decodeURI(window.location.search.substring(1));
+var parametro = new URLSearchParams(location.search);
+var nombreproducto = parametro.get("producto");
 
 function showProductInfo(producto){
-    let hmtltoappend = 
-    `<h3>`+nombreproducto+`</h3>
+    var picstoappend = "";
+    var indicatorstoappend = "";
+    var hmtltoappend = 
+    `<h2>`+nombreproducto+`</h2>
      <hr>
      <p>`+producto.description+`</p>
-     <h4>`+producto.currency+` `+producto.cost+`</h4>
-     <div class="row text-center text-lg-left pt-2">
-       `
-    for (let i = 0; i < producto.images.length; i++) {
-        imagen = producto.images[i];
-        hmtltoappend +=`
-        <div class="col-lg-3 col-md-4 col-6">
-            <div class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src="` + imagen + `" alt="">
-            </div>
+     <h4> PRECIO: `+producto.currency+` `+producto.cost+`</h4>
+     <div>
+     <div id="carouselpic" class="carousel slide" data-ride="carousel">
+        <ol id="carind" class="carousel-indicators">
+        </ol>
+        <div id="inner" class="carousel-inner">
         </div>
-        `
-    }
-    hmtltoappend+=`
-    <div  class="container p-5">
+        <a class="carousel-control-prev" href="#carouselpic" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselpic" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+     </div>
+       `;
+       hmtltoappend+=`
+    <div id="botoncomentarios" >
         <input type="button" id="showcomments" value="Mostrar/Ocultar comentarios y puntuaciones" onclick="spoiler()" >
     </div>
         <div id="toappendcomments" class= "container p-5" style="display: none;">
         </div>
     </div>
-    <div id="relatedproducts" class="row text-center text-lg-left pt-2">
+    <h3 id="vea"> Vea también</h3>
+    <div id="relatedproducts" >
     </div>
+    
     `;
     document.getElementById("toappend").innerHTML=hmtltoappend;
+    
+    for (let i = 0; i < producto.images.length; i++) {
+        if (i==0){
+           indicatorstoappend=`
+           <li data-target="#carouselpic" data-slide-to="0" class="active"></li>
+           `
+        }else {
+            indicatorstoappend+=`
+            <li data-target="#carouselpic" data-slide-to="`+i+`"></li>
+            `
+        }
+    };
+    for (let i = 0; i < producto.images.length; i++) {
+        let imagen = producto.images[i];
+        if (i==0){
+           picstoappend =`
+            <div class="carousel-item active">
+                <img src=`+imagen+` class="d-block w-100" >
+            </div>
+           ` 
+        }else {
+            picstoappend+=`
+            <div class="carousel-item">
+                <img src=`+imagen+` class="d-block w-100">
+            </div>
+            `
+        }
+    };
+    document.getElementById("carind").innerHTML=indicatorstoappend;
+    document.getElementById("inner").innerHTML=picstoappend;
+    
 };
 function crearhora(){
     var date = new Date();
@@ -106,17 +144,18 @@ function showComents(comentarios){
 }
 
 function showrelatedproducts(relproducts,productdata){
-    htmltoappend= "";
-    let related = productData.relatedProducts;
+    let htmltoappend="";
+    let related = productdata.relatedProducts;
     for (let i = 0; i < related.length; i++) {
         const element = related[i];
         const producto = relproducts[element];
         htmltoappend +=`
-        <a href ="product-info.html?`+producto.name+`">
-            <div class="col-lg-3 col-md-4 col-6">
-                <div class="d-block mb-4 h-100">
+        <a href ="product-info.html?producto=`+producto.name+`">
+            <div>
+                <div>
                     <p>`+producto.name+`</p>
                     <img src="`+producto.imgSrc+`" class="img-fluid img-thumbnail">
+                    <p>`+producto.currency+``+producto.cost+`</p> 
                 </div>
             </div>    
         </a>
@@ -132,20 +171,25 @@ function showrelatedproducts(relproducts,productdata){
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     showSpinner();
-    getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
-        productData = resultObj.data;
-        getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
-            if(resultObj.status=="ok"){    
-                commentsData= resultObj.data;
-            };
-            getJSONData(PRODUCTS_URL).then(function(resultObj){
-                if(resultObj.status=="ok"){    
-                    products = resultObj.data;
-                    showProductInfo(productData);
-                    showComents(commentsData);
-                    showrelatedproducts(products, productData);
-                }});
+    getJSONData(PRODUCT_INFO_URL)
+    .then(resultObj => {
+        showProductInfo(resultObj.data)
+        return resultObj.data
+    }) 
+    .then(productinfo => {
+
+        getJSONData(PRODUCT_INFO_COMMENTS_URL)
+        .then(resultObj => {
+            commentsData= resultObj.data;
+            showComents(commentsData)
         });
-        hideSpinner();
-    });
+        return productinfo;
+    })
+    .then(productinfo => {
+        getJSONData(PRODUCTS_URL)
+        .then(resultObj => {
+            showrelatedproducts(resultObj.data, productinfo);
+            hideSpinner();
+        })
+    })
 });
