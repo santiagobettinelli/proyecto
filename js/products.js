@@ -100,7 +100,7 @@ function showPoductsByLetter(){
     for (let index = 0; index < productsArray.length; index++) {
         const product = productsArray[index];
         const productname = product.name.toLowerCase();
-        if (productname.indexOf(word.toLowerCase())==0){
+        if (productname.search(word.toLowerCase())!==-1){
              htmlContentToAppend += `
             <a href="product-info.html?producto=`+product.name+`">
             <div class="list-group-item list-group-item-action">

@@ -42,12 +42,42 @@
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 5 (Fecha de entrega: 11/10/2020) y Entrega 6 (Fecha de entrega: 25/10/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <div class="carrito">
+    <h1>Carrito</h1>
+    <div id ="productos">
+      
+    </div>
+    <p id="subtotal">Sub Total:</p>
+    <div id ="envioypago">
+      <form action="">
+        <fieldset id="direccion">
+          <label class="info" for="calle">Calle </label>
+          <input class="info" type="text" name="calle" id="calle" placeholder="Número de puerta">
+          <label class="info" for="numero">Número de puerta </label>
+          <input class="info" type="number" name ="numero" id="numero">
+          <label class="info" for="esquina">Esquina </label>
+          <input class="info" type="text" name="esquina" id="esquina">
+        </fieldset>
+        <fieldset class="infocompra">
+          <label for="pais">Ingrese su país</label>
+          <input type="text" name="pais" id="pais" placeholder="País">
+        </fieldset>
+        <fieldset class="infocompra">
+          <label for="tipoenvio">Seleccione tipo de envio:</label>
+          <input type="radio" name="tipoenvio" id="tipoenvio" value="s" required> Standard-5% del subtotal
+          <input type="radio" name="tipoenvio" id="tipoenvio" value="e"> Express-7% del subtotal
+          <input type="radio" name="tipoenvio" id="tipoenvio" value="p"> Premium-15% del subtotal
+        </fieldset>
+        <fieldset class="infocompra">
+          <label for="tipopago">Forma de pago:</label>
+          <input type="radio" name="tipopago" id="tipopago" value="c" required> Credito
+          <input type="radio" name="tipopago" id="tipopago" value="tb"> Transferencia bancaria
+        </fieldset>
+        <p id="totalapagar"></p>
+        <fieldset>
+          <input type="submit" value="Comprar">
+        </fieldset>
+      </form>
     </div>
   </div>
   <div id="spinner-wrapper">

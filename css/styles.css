@@ -192,3 +192,44 @@ div#botoncomentarios{
   justify-content: center;
   margin-top: 5%;
 }
+div#productos{
+  display: flex;
+  flex-direction: column;
+}
+div.articulo{
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+.imagenarticulo{
+  width: 10%;
+}
+
+.carrito{
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+}
+div#envioypago{
+  display: flex;
+  flex-direction: row;
+}
+fieldset#direccion{
+  display:flex;
+  justify-content: space-evenly;
+  margin-bottom: 10px;
+}
+.info{
+  flex-shrink: 2;
+}
+.infocompra{
+  text-align: left;
+}

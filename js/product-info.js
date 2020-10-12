@@ -59,7 +59,7 @@ function showProductInfo(producto){
         if (i==0){
            picstoappend =`
             <div class="carousel-item active">
-                <img src=`+imagen+` class="d-block w-100" >
+                <img src="`+imagen+`" class="d-block w-100" >
             </div>
            ` 
         }else {
