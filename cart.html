@@ -49,12 +49,12 @@
     </div>
     <p id="subtotal">Sub Total:</p>
     <div id ="envioypago">
-      <form action="">
+      <form id="formulario" action="" method="GET" onsubmit= "verifypurchase(event)">
         <fieldset id="direccion">
-          <label class="info" for="calle">Calle </label>
+          <label class="info" for="calle" form="">Calle </label>
           <input class="info" type="text" name="calle" id="calle" placeholder="Número de puerta">
           <label class="info" for="numero">Número de puerta </label>
-          <input class="info" type="number" name ="numero" id="numero">
+          <input class="info" type="number" name ="numerop" id="numerop">
           <label class="info" for="esquina">Esquina </label>
           <input class="info" type="text" name="esquina" id="esquina">
         </fieldset>
@@ -63,16 +63,51 @@
           <input type="text" name="pais" id="pais" placeholder="País">
         </fieldset>
         <fieldset class="infocompra">
-          <label for="tipoenvio">Seleccione tipo de envio:</label>
-          <input type="radio" name="tipoenvio" id="tipoenvio" value="s" required> Standard-5% del subtotal
+          <label for="tipoenvio">Tipo de envio:</label>
+          <input type="radio" name="tipoenvio" id="tipoenvio" value="s" checked =""required> Standard-5% del subtotal
           <input type="radio" name="tipoenvio" id="tipoenvio" value="e"> Express-7% del subtotal
           <input type="radio" name="tipoenvio" id="tipoenvio" value="p"> Premium-15% del subtotal
         </fieldset>
-        <fieldset class="infocompra">
-          <label for="tipopago">Forma de pago:</label>
-          <input type="radio" name="tipopago" id="tipopago" value="c" required> Credito
-          <input type="radio" name="tipopago" id="tipopago" value="tb"> Transferencia bancaria
-        </fieldset>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formapagomodal">
+          Forma de pago
+        </button>
+        <div class="modal fade" id="formapagomodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Forma de pago:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <fieldset class="infocompra">
+                  <input type="radio" name="tipopago" id="tipopago" value="tc" > Credito
+                  <hr>
+                  <div class="pago">
+                    <label for="tarjetacuerpo"> Numero de tarjeta</label>
+                    <input type="text" name="tarjetacuerpo" id="tarjetacuerpo" placeholder="ej: 1234-1234-1234-1234">
+                    <label for="codigoseg">Codigo de seguridad</label>
+                    <input type="text" name="codigoseg" id="codigoseg" placeholder="ej: 123">
+                    <label for="month">Vencimiento</label>
+                    <input type="text" name ="month" id="month" placeholder="ej: mm/aa">
+                    <hr>
+                  </div>
+                  <input type="radio" name="tipopago" id="tipopago" value="tb"> Transferencia bancaria
+                  <hr>
+                  <div class="pago">
+                    <label for="tbank">Numero de cuenta</label>
+                    <input type="text" name="tbank" id="tbank">
+                  </div>
+                </fieldset>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p id="precioenvio"></p>
         <p id="totalapagar"></p>
         <fieldset>
           <input type="submit" value="Comprar">

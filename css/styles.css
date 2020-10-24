@@ -233,3 +233,8 @@ fieldset#direccion{
 .infocompra{
   text-align: left;
 }
+.pago{
+  display: flex;
+  flex-direction: column;
+  width: 15em;
+}
