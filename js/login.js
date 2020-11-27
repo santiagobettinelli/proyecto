@@ -10,7 +10,7 @@ function verificacion(){
         };
         let usuarioString = JSON.stringify(usuario);
         localStorage.setItem("usu", usuarioString);
-        sessionStorage.setItem("visitado","true");
+        localStorage.setItem("visitado","true");
         window.location.replace("index.html");
     }
 };

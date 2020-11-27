@@ -238,3 +238,14 @@ fieldset#direccion{
   flex-direction: column;
   width: 15em;
 }
+#modificarperfil div{
+  display: flex;
+  flex-direction: column;
+  
+}
+.form-group input{
+  width: 15em;
+}
+#imagen{
+  width: 50%;
+}

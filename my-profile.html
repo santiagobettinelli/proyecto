@@ -43,12 +43,45 @@
     </div>
   </nav>
   <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+    <div class="card">
+      <div class="d-flex align-items-center">
+        <img id="imagen" class="rounded" width="50%" src="https://i.ibb.co/fYcTPY9/hYft41.png" alt="hYft41" border="0">
+      <div class="card-body">
+        <p id="nombre"></p>
+        <p id="apellido"></p>
+        <p id="edad"></p>
+        <p id="email"></p>
+        <p id="telefono"></p>
+      </div>
     </div>
+    </div>
+    <div  class="d-flex flex-column">
+      <input type="button"  value="modificar perfil" onclick="spoiler()" >
+    </div>
+    
+    <form id="modificarperfil" style="display: none;"> 
+        <div class="form-group">
+          <label for="nombreinput"> Nombre: </label>
+          <input type="text" class="form-control-sm" name="nombreinput" id="nombreinput">
+        </div>
+        <div class="form-group">
+          <label for="apellidoinput"> Apellidos: </label>
+          <input type="text" class="form-control-sm" name="apellidoinput" id="apellidoinput"> 
+        </div>
+        <div class="form-group">
+          <label for="edadinput"> Edad: </label>
+          <input type="text" class="form-control-sm" name="edadinput" id="edadinput">
+        </div>
+        <div class="form-group">
+          <label for="emailinput"> Email</label>
+          <input type="email"  class="form-control-sm" name="emailinuput" id="emailinput" placeholder="algo@gmail.com">
+        </div>
+        <div class="form-group">
+          <label for="telefonoinput"> Telefono: </label>
+          <input type="text"  class="form-control-sm" name="telefonoinput" id="telefonoinput" placeholder="ej: 090000000">
+        </div>
+          <button type="submit"  onclick="cambiarDatos(event)">Cambiar datos </button>
+    </form>
   </div>
   <footer class="text-muted bg-light">
     <div class="container">

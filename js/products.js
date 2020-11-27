@@ -67,31 +67,25 @@ function showProductsList(array){
             let product = arraycopia[i];
 
             htmlContentToAppend += `
-            <a href="product-info.html?producto=`+product.name+`">
-            <div class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card">
+                    <a href="product-info.html?producto= `+ product.name +`" class="list-group-item list-group-item-action">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `"class="card-img-top">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">`+ product.name +`</h4>
+                            <small class="text-muted">` + product.cost + " " + product.currency + ` </small>
                         </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h3 class="mb-1">`+ product.name +`</h3>
-                                <small>` + product.soldCount + ` artículos</small>
-                            </div>
-                            <p>`+product.description + `</p> 
-                            <div style="text-align:right;"> 
-                            <h3>`+product.currency+` `+product.cost+` </h3>
-                            </div>
-                        </div>
-                        
-                    </div>
+                        <p class="mb-1">` + product.description + `</p>
+                        <span class="align-bottom">` +"Total vendidos:"+" "+ product.soldCount + `</span>
+                    </a>
                 </div>
-            </a>`
+            </div>
+           `
             ;
         };
-        document.getElementById("product-list-container").innerHTML = htmlContentToAppend;
+        document.getElementById("fila").innerHTML = htmlContentToAppend;
     } else {
-        document.getElementById("product-list-container").innerHTML = "";
+        document.getElementById("fila").innerHTML = "";
     }
 };
 function showPoductsByLetter(){
@@ -102,31 +96,26 @@ function showPoductsByLetter(){
         const productname = product.name.toLowerCase();
         if (productname.search(word.toLowerCase())!==-1){
              htmlContentToAppend += `
-            <a href="product-info.html?producto=`+product.name+`">
-            <div class="list-group-item list-group-item-action">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="` + product.imgSrc + `" alt="` + product.name + `" class="img-thumbnail">
+             <div class="col-12 col-sm-6 col-md-4">
+                <div class="card">
+                    <a href="product-info.html?producto= `+ product.name +`" class="list-group-item list-group-item-action">
+                        <img src="` + product.imgSrc + `" alt="` + product.description + `"class="card-img-top">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h4 class="mb-1">`+ product.name +`</h4>
+                            <small class="text-muted">` + product.cost + " " + product.currency + ` </small>
                         </div>
-                        <div class="col">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h3 class="mb-1">`+ product.name +`</h3>
-                                <small>` + product.soldCount + ` artículos</small>
-                            </div>
-                            <p>`+product.description + `</p> 
-                            <div style="text-align:right;"> 
-                            <h3>`+product.currency+` `+product.cost+` </h3>
-                            </div>
-                        </div>
-                        
-                    </div>
+                        <p class="mb-1">` + product.description + `</p>
+                        <span class="align-bottom">` +"Total vendidos:"+" "+ product.soldCount + `</span>
+                    </a>
                 </div>
-            </a>`
+            </div>`
+                
+          
             ;
             
         } 
     };
-    document.getElementById("product-list-container").innerHTML = htmlContentToAppend;
+    document.getElementById("fila").innerHTML = htmlContentToAppend;
 }
 
 

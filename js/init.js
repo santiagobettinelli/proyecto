@@ -1,4 +1,4 @@
-var loggeado = sessionStorage.getItem("visitado");
+var loggeado = localStorage.getItem("visitado");
 if(!location.href.endsWith("login.html")&&(loggeado!="true")){
   window.location.replace("login.html");
 }else if (loggeado == "true" && location.href.endsWith("login.html") ){

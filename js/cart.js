@@ -100,7 +100,7 @@ radios[1].addEventListener("click", function(){
 })
 // funcion de verificación que se ejecuta al apretar el boton Comprar 
 function verifypurchase(event){
-   
+    event.preventDefault();
     let faltainfo = true;
     let radios = document.getElementsByName("tipopago");
     let numtarjeta = document.getElementById("tarjetacuerpo").value;
@@ -126,12 +126,11 @@ function verifypurchase(event){
     if(!faltainfo){
         getJSONData(CART_BUY_URL)
         .then(datos => {
-            console.log("aqui llegue");
-            console.log(datos.data.msg)
             alert(datos.data.msg);
+            document.getElementById("formulario").submit();
         })
     } else {
-        event.preventDefault();
+        
         alert("Faltan llenar datos claves, por favor intente de nuevo");
     }
 
